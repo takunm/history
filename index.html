@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Anchor Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Anchor Generator</h1>
+    <label for="urlInput">Enter a URL:</label>
+    <input type="text" id="urlInput" placeholder="https://example.com">
+    <br>
+    <label for="countInput">Enter the number of anchors:</label>
+    <input type="number" id="countInput" min="1" value="1">
+    <br>
+    <button onclick="generateAnchors()">Execute</button>
+
+    <script>
+        function generateAnchors() {
+            const url = document.getElementById("urlInput").value;
+            const count = parseInt(document.getElementById("countInput").value);
+
+            // Open a new window with the specified URL
+            window.open(url, "_blank");
+
+            // Generate random anchors
+            for (let i = 0; i < count; i++) {
+                const randomAnchor = Math.random().toString(36).substr(2, 6);
+                const newURL = url.replace(/#.*/, '') + '#' + randomAnchor;
+                window.open(newURL, "_blank");
+            }
+        }
+    </script>
+</body>
+</html>
