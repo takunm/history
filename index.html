@@ -18,6 +18,10 @@
         h1 {
             text-align: center;
             color: #333;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
         label {
             display: block;
@@ -61,9 +65,6 @@
             const url = document.getElementById("urlInput").value;
             const count = parseInt(document.getElementById("countInput").value);
 
-            // Open a new window with the specified URL
-            window.open(url, "_blank");
-
             // Generate random anchors
             for (let i = 0; i < count; i++) {
                 const randomAnchor = Math.random().toString(36).substr(2, 6);
@@ -74,3 +75,4 @@
     </script>
 </body>
 </html>
+
