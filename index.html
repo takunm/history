@@ -3,76 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Anchor Generator</title>
+    <title>Google</title>
+    <link rel="apple-touch-icon" href="android-icon-96x96.png" sizes="180x180">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
             margin: 0;
-            padding: 0;
+            overflow: hidden;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             height: 100vh;
+            flex-direction: column;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+
         button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: white;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none; 
         }
     </style>
 </head>
 <body>
-    <h1>Random Anchor Generator</h1>
-    <label for="urlInput">Enter a URL:</label>
-    <input type="text" id="urlInput" placeholder="https://example.com">
-    <br>
-    <label for="countInput">Enter the number of anchors:</label>
-    <input type="number" id="countInput" min="1" value="1">
-    <br>
-    <button onclick="generateAnchors()">Execute</button>
+    <input type="text" id="urlInput" placeholder="Enter URL">
+    <button onclick="openPage()">Open Page</button>
+
+    <button onclick="openGoogle()">Google</button>
+    <button onclick="openBing()">Bing</button>
+    <button onclick="openWikipedia()">Wikipedia</button>
+
+
+    <iframe id="pageFrame" title="Page"></iframe>
 
     <script>
-        function generateAnchors() {
-            const url = document.getElementById("urlInput").value;
-            const count = parseInt(document.getElementById("countInput").value);
+        // 変数
+        let anchor = '';
 
-            // Generate random anchors
-            for (let i = 0; i < count; i++) {
-                const randomAnchor = Math.random().toString(36).substr(2, 6);
-                const newURL = url.replace(/#.*/, '') + '#' + randomAnchor;
-                window.open(newURL, "_blank");
+        // URLの更新あたり
+        setInterval(function () {
+            const randomAnchor = Math.random().toString(36).substr(2, 6);
+            anchor = randomAnchor;
+            const currentURL = window.location.href;
+            const newURL = currentURL.replace(/#.*/, '') + '#' + anchor;
+          // 速度の調整(0.2秒ごとかな？)
+            window.location.href = newURL;
+        }, 20);
+
+        function openPage() {
+            const urlInput = document.getElementById('urlInput').value;
+            if (urlInput) {
+                const pageFrame = document.getElementById('pageFrame');
+                pageFrame.src = urlInput;
+                pageFrame.style.display = 'block';
             }
+        }
+
+        function openGoogle() {
+            document.getElementById('urlInput').value = 'https://google.com/?igu=1';
+            openPage();
+        }
+
+        function openBing() {
+            document.getElementById('urlInput').value = 'https://bing.com';
+            openPage();
+        }
+
+        function openWikipedia() {
+            document.getElementById('urlInput').value = 'https://wikipedia.org';
+            openPage();
         }
     </script>
 </body>
 </html>
-
